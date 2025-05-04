@@ -5,8 +5,9 @@ import atexit
 from groq import Groq
 from rich.markdown import Markdown
 from rich.console import Console
+import os
 
-GROQ_KEY = "" # YOUR GROQ KEY
+GROQ_KEY = "" # Your Groq API key here
 console = Console()
 client = Groq(api_key=GROQ_KEY)
 
@@ -17,7 +18,7 @@ def groq_completion(messages):
     response = ""
 
     completion_args = {
-        "model": "compound-beta",
+        "model": "compound-beta-mini",
         "messages": messages,
         "temperature": 0.7,
         "max_completion_tokens": 1024,
@@ -86,6 +87,11 @@ def main():
             # Handle Ctrl+C gracefully
             reset_terminal()
             print("Program terminated.")
+            break
+
+        except Exception as e:
+            reset_terminal()
+            print(Fore.RED + f"An error occurred: {e}")
             break
 
 if __name__ == "__main__":
